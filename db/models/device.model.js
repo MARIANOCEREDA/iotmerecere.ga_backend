@@ -59,7 +59,8 @@ class Device extends Model{
     static associate(models){ //Los metodos estaticos no necesitan una instancia de la clase para ser llamados.
       this.belongsTo(models.User,{as:'user'});
       this.belongsToMany(models.Group,{
-        through:models.DeviceGroup,
+        as:'item',
+        through:models.Device_Group,
         foreignKey:'deviceId',
         otherKey:'groupId'
       });
