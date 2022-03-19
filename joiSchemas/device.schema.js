@@ -9,12 +9,14 @@ const name = Joi.string().max(255);
 const description = Joi.string().max(1000);
 const mqttConected = Joi.bool();
 const appConected = Joi.bool();
+const userId = Joi.number().integer();
 
 const deviceSchema = Joi.object({
   name:name.required(),
   description:description,
   mqttConected:mqttConected,
-  appConected:appConected
+  appConected:appConected,
+  userId:userId.required()
 });
 
 module.exports = {deviceSchema};

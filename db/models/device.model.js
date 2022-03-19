@@ -45,7 +45,6 @@ const DeviceSchema = {
       field:'userId',
       allowNull:false,
       type:DataTypes.INTEGER,
-      unique:true,
       references:{
         model:USER_TABLE,
         key:'id'
@@ -67,9 +66,9 @@ class Device extends Model{
     }
 
     static config(sequelize){
-    /**@description: Metodo que retorna la configuracion de mi modelo,
-        *@params {Object} - sequelize: Contiene la conexión
-        *@returns {Object} - Contiene la configración de mi modelo*/
+    /**@description: Método que retorna la configuracion de mi modelo,
+      *@params {Object} - sequelize: Contiene la conexión
+      *@returns {Object} - Contiene la configración de mi modelo*/
         return{
             sequelize,
             tableName:DEVICE_TABLE,

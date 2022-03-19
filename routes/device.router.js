@@ -27,4 +27,14 @@ async (req,res,next)=>{
   }
 });
 
+router.get('/',
+async(req,res,next)=>{
+  try{
+    const devices = await service.findAll();
+    res.json(devices);
+  }catch(error){
+    next(error);
+  }
+});
+
 module.exports = router;
