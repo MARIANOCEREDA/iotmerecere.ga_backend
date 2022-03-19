@@ -29,11 +29,12 @@ const GroupSchema = {
         type:DataTypes.DATE,
         filed:'createdAt',
         defaultValue:Sequelize.NOW
-    }
+    },
 }
 
 class Group extends Model{
     static associate(models){ //Los metodos estaticos no necesitan una instancia de la clase para ser llamados.
+
     }
 
     static config(sequelize){

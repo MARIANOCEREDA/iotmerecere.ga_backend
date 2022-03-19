@@ -73,6 +73,10 @@ const UserSchema = {
 
 class User extends Model{
     static associate(models){ //Los metodos estaticos no necesitan una instancia de la clase para ser llamados.
+      this.hasMany(models.Device,{
+        as:'devices',
+        foreignKey:'userId'
+      });
     }
 
     static config(sequelize){

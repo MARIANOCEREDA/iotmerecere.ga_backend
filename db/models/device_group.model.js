@@ -1,39 +1,21 @@
 
 const {Model,DataTypes,Sequelize} = require('sequelize');
-const { USER_TABLE }=require('./user.model');
+const {DEVICE_TABLE}=require('../models/device.model');
+const {GROUP_TABLE}=require('../models/group.model');
 
-const DEVICE_TABLE = 'devices';
+const DEVICE_GROUP_TABLE = 'device_group';
 
 /**
-*@name DeviceSchema
-*@description Modelo de usuarios para la tabla en POSTGRES
+*@name GroupSchema
+*@description Modelo de grupos para la tabla de psql
 *@type Object
 */
-const DeviceSchema = {
+const DeviceGroupSchema = {
     id:{
         allowNull:false,
         autoIncrement:true,
         primaryKey:true,
         type:DataTypes.INTEGER
-    },
-    name:{
-      allowNull:false,
-      type:DataTypes.STRING,
-      length:255
-    },
-    description:{
-      type:DataTypes.TEXT,
-      allowNull:true,
-    },
-    mqttConected:{
-      type:DataTypes.BOOLEAN,
-      allowNull:false,
-      defaultValue:false
-    },
-    appConected:{
-      type:DataTypes.BOOLEAN,
-      allowNull:false,
-      defaultValue:false
     },
     createdAt:{
         allowNull:false,
@@ -41,13 +23,25 @@ const DeviceSchema = {
         filed:'createdAt',
         defaultValue:Sequelize.NOW
     },
-    userId:{
-      field:'userId',
+    deviceId:{
+      field:'deviceId',
       allowNull:false,
       type:DataTypes.INTEGER,
       unique:true,
       references:{
-        model:USER_TABLE,
+        model:DEVICE_TABLE,
+        key:'id'
+      },
+      onUpdate:'CASCADE',
+      onDelete:'SET NULL'
+    },
+    GroupId:{
+      field:'groupId',
+      allowNull:false,
+      type:DataTypes.INTEGER,
+      unique:true,
+      references:{
+        model:GROUP_TABLE,
         key:'id'
       },
       onUpdate:'CASCADE',
@@ -55,14 +49,8 @@ const DeviceSchema = {
     }
 }
 
-class Device extends Model{
+class DeviceGroup extends Model{
     static associate(models){ //Los metodos estaticos no necesitan una instancia de la clase para ser llamados.
-      this.belongsTo(models.User,{as:'user'});
-      this.belongsToMany(models.Group,{
-        through:models.DeviceGroup,
-        foreignKey:'deviceId',
-        otherKey:'groupId'
-      });
     }
 
     static config(sequelize){
@@ -71,11 +59,11 @@ class Device extends Model{
         *@returns {Object} - Contiene la configración de mi modelo*/
         return{
             sequelize,
-            tableName:DEVICE_TABLE,
-            modelName:'Device',
+            tableName:DEVICE_GROUP_TABLE,
+            modelName:'Device_Group',
             timestamps:false
         }
     }
 }
 
-module.exports = { DEVICE_TABLE,DeviceSchema,Device}
+module.exports = { DEVICE_GROUP_TABLE,DeviceGroupSchema,DeviceGroup }
