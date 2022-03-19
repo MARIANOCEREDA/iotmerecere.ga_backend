@@ -1,0 +1,45 @@
+version: '3.3'
+
+volumes:
+  vol-emqx-data:
+    name: foo-emqx-data
+  vol-emqx-etc:
+    name: foo-emqx-etc
+  vol-emqx-log:
+    name: foo-emqx-log
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=mqtt_db
+      - POSTGRES_USER=marianocereda
+      - POSTGRES_PASSWORD=admin123
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=gmarianocereda@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - 5050:80
+
+  emqx:
+    container_name: emqx
+    image: emqx/emqx:latest
+    ports:
+      - 18083:18083
+      - 1883:1883
+      - 8093:8093
+      - 8094:8094
+    environment:
+      EMQX_NAME: foo_emqx
+      EMQX_HOST: 127.0.0.1
+    volumes:
+      - vol-emqx-data:/opt/emqx/data
+      - vol-emqx-etc:/opt/emqx/etc
+      - vol-emqx-log:/opt/emqx/log
