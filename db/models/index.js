@@ -1,5 +1,6 @@
 const {User,UserSchema}=require('./user.model');
 const {Device,DeviceSchema}=require('./device.model');
+const {Group,GroupSchema}=require('./group.model');
 
 function setUpModels(sequelize){
   User.init(UserSchema, User.config(sequelize));
