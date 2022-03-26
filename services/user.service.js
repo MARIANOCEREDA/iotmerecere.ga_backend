@@ -26,11 +26,11 @@ class UserService{
       return user;
     }
 
-    findByEmail(email){
+    async findByEmail(email){
       const user = await models.User.findOne({
         where:{email}
       });
-      
+
       return user;
     }
 
