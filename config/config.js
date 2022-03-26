@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const config = {
   isProd:false,
+  apiKey:process.env.API_KEY,
   appPort:process.env.APP_PORT,
   dbUser:process.env.DB_USER,
   dbPort:process.env.DB_PORT,
