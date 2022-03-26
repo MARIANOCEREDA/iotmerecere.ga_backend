@@ -37,4 +37,15 @@ async(req,res,next)=>{
   }
 });
 
+router.get('/:id',
+async (req,res,next)=>{
+  try{
+    const { id } = req.params;
+    const device = await service.findOne(id);
+    res.json(device);
+  }catch(error){
+    next(error);
+  }
+});
+
 module.exports = router;
