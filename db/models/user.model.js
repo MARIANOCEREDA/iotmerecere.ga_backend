@@ -74,7 +74,11 @@ const UserSchema = {
 class User extends Model{
     static associate(models){ //Los metodos estaticos no necesitan una instancia de la clase para ser llamados.
       this.hasMany(models.Device,{
-        as:'devices',
+        as:'UserHasDevices',
+        foreignKey:'userId'
+      });
+      this.hasMany(models.Group,{
+        as:'UserHasGroups',
         foreignKey:'userId'
       });
     }
