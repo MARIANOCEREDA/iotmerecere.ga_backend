@@ -19,6 +19,16 @@ class DeviceService{
     });
     return allDevices;
   }
+
+  async findOne(id){
+    const device = await models.Device.findByPk(id,{
+      include:[
+        'user',
+        'group'
+      ]
+    })
+    return device
+  }
 }
 
 module.exports = { DeviceService }
