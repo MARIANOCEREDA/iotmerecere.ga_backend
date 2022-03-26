@@ -7,10 +7,12 @@ const Joi = require("joi");
 
 const name = Joi.string().max(255);
 const description = Joi.string().max(1000);
+const userId = Joi.number().integer();
 
-const deviceSchema = Joi.object({
+const groupSchema = Joi.object({
   name:name.required(),
   description:description,
+  userId:userId.required()
 });
 
 module.exports = {groupSchema};
