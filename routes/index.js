@@ -17,6 +17,7 @@
 const express = require('express');
 const userRouter = require('./user.router');
 const deviceRouter = require('./device.router');
+const groupRouter = require('./group.router');
 
 function routerApi(app){
     /**
@@ -27,6 +28,7 @@ function routerApi(app){
     app.use('/api/v1', router);
     router.use('/user',userRouter);
     router.use('/device',deviceRouter);
+    router.use('/group',groupRouter);
 }
 
 module.exports = routerApi;
