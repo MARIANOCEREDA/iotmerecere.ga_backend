@@ -11,11 +11,13 @@ const express = require("express");
 const { deviceSchema } = require("../joiSchemas/device.schema");
 const { validatorHandler } = require("../middlewares/validator.handler");
 const { DeviceService } = require("../services/device.service");
+const passport = require('passport');
 const router = express.Router();
 
 const service = new DeviceService();
 
 router.post('/create',
+passport.authenticate('jwt',{session:false}),
 validatorHandler(deviceSchema,'body'),
 async (req,res,next)=>{
   try{
@@ -28,6 +30,7 @@ async (req,res,next)=>{
 });
 
 router.get('/',
+passport.authenticate('jwt',{session:false}),
 async(req,res,next)=>{
   try{
     const devices = await service.findAll();
@@ -38,6 +41,7 @@ async(req,res,next)=>{
 });
 
 router.get('/:id',
+passport.authenticate('jwt',{session:false}),
 async (req,res,next)=>{
   try{
     const { id } = req.params;
