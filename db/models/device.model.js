@@ -1,6 +1,7 @@
 
 const {Model,DataTypes,Sequelize} = require('sequelize');
 const { USER_TABLE }=require('./user.model');
+const { GROUP_TABLE }=require('./group.model');
 
 const DEVICE_TABLE = 'devices';
 
@@ -51,18 +52,24 @@ const DeviceSchema = {
       },
       onUpdate:'CASCADE',
       onDelete:'SET NULL'
+    },
+    groupId:{
+      field:'groupId',
+      allowNull:false,
+      type:DataTypes.INTEGER,
+      references:{
+        model:GROUP_TABLE,
+        key:'id'
+      },
+      onUpdate:'CASCADE',
+      onDelete:'SET NULL'
     }
 }
 
 class Device extends Model{
     static associate(models){ //Los metodos estaticos no necesitan una instancia de la clase para ser llamados.
       this.belongsTo(models.User,{as:'user'});
-      this.belongsToMany(models.Group,{
-        as:'item',
-        through:models.Device_Group,
-        foreignKey:'deviceId',
-        otherKey:'groupId'
-      });
+      this.belongsTo(models.Group,{as:'group'});
     }
 
     static config(sequelize){
