@@ -11,11 +11,13 @@ const express = require("express");
 const { groupSchema } = require("../joiSchemas/group.schema");
 const { validatorHandler } = require("../middlewares/validator.handler");
 const { GroupService } = require("../services/group.service");
+const passport = require('passport');
 const router = express.Router();
 
 const service = new GroupService();
 
 router.post('/create',
+passport.authenticate('jwt',{session:false}), //Al igual que con local, esta estrategia deja al "user" en el req.user
 validatorHandler(groupSchema,'body'),
 async (req,res,next)=>{
   try{
@@ -28,6 +30,7 @@ async (req,res,next)=>{
 });
 
 router.get('/',
+passport.authenticate('jwt',{session:false}),
 async(req,res,next)=>{
   try{
     const groups = await service.findAll();
@@ -38,6 +41,7 @@ async(req,res,next)=>{
 });
 
 router.get('/:id',
+passport.authenticate('jwt',{session:false}),
 async (req,res,next)=>{
   try{
     const { id } = req.params;
