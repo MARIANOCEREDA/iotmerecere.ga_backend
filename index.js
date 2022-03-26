@@ -39,6 +39,7 @@ const options = {
 }
 app.use(cors(options));
 
+require('./utils/auth'); //Aqui habilitamos la estrategia local para autenticacion
 routerApi(app);
 
 app.use(logErrors);
