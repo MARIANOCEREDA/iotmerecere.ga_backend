@@ -26,6 +26,14 @@ class UserService{
       return user;
     }
 
+    findByEmail(email){
+      const user = await models.User.findOne({
+        where:{email}
+      });
+      
+      return user;
+    }
+
     async findAll(){
       const users = await models.User.findAll();
       if(!users){
