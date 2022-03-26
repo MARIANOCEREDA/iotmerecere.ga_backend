@@ -55,7 +55,7 @@ async (req,res,next)=>{
   try{
     const {id} = req.params;
     const username = await service.deleteOne(id);
-    res.json(username);  
+    res.json(username);
   }catch(error){
     next(error);
   }
