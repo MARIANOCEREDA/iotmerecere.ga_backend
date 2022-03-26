@@ -18,7 +18,9 @@ const cors = require('cors');
 const { config } = require('./config/config');
 const routerApi = require('./routes');
 const { logErrors,errorHandler,boomErrorHandler,ormErrorHandler } = require('./middlewares/error.handler');
+const { checkApiKey } = require('./middlewares/auth.handler');
 const { mqttConnect,mqttSubscribe } = require('./mqtt/mqtt.subscribe');
+
 
 const subsTopic = "/nodejs/mqtt"
 
@@ -44,7 +46,9 @@ app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.get('/', (req, res) => {
+app.get('/',
+checkApiKey,
+(req, res) => {
     res.send('Server from express!');
   });
 
