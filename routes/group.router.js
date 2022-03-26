@@ -27,4 +27,25 @@ async (req,res,next)=>{
   }
 });
 
+router.get('/',
+async(req,res,next)=>{
+  try{
+    const groups = await service.findAll();
+    res.json(groups);
+  }catch(error){
+    next(error);
+  }
+});
+
+router.get('/:id',
+async (req,res,next)=>{
+  try{
+    const { id } = req.params;
+    const group = await service.findOne(id);
+    res.json(group);
+  }catch(error){
+    next(error);
+  }
+});
+
 module.exports = router;
