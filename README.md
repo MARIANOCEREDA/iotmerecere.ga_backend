@@ -1,3 +1,2 @@
-# Home automation 
+# Home automation Backend
 
-Development of a home automation system.
